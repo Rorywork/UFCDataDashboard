@@ -1,34 +1,88 @@
 (function(){
-    var width = 500;
-        height = 500;
+    var width = 1000;
+        height = 1300;
         
     var svg = d3.select("#chart")
         .append("svg")
         .attr("height", height)
         .attr("width", width)
         .append("g")
-        .attr("transform", "translate(0,0)")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
         
     
     var simulation = d3.forceSimulation()
-        .force("x", d3.forceX(width / 2).strength(0.05))      
-        .force("y", d3.forceY(height / 2).strength(0.05))
-        .force("collide", d3.forceCollide(5))
+        .force("x", d3.forceX(0).strength(0.003))      
+        .force("y", d3.forceY(0).strength(0.003))
+        .force("collide", d3.forceCollide(function(d){
+            return radiusScale(d.fights_in_UFC) + 1;
+        }))
+    
         
+    var defs = svg.append("defs");
+    
+    defs.append("pattern")
+        .attr("id", "jon-snow")
+        .attr("height", "100%")
+        .attr("width", "100%")
+        .attr("patternContentUnits", "objectBoundingBox")
+        .append("image")
+        .attr("height", 1)
+        .attr("width", 1)
+        .attr("preserveAspectRatio", "none")
+        .attr("xlink:href", "images/jones.jpg")
+    
+    
+        
+    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([10, 80]);
+       
         
         
     d3.queue()
-        .defer(d3.csv, "ufc-data.csv")
+        .defer(d3.csv, "ufc-data-2.csv")
         .await(ready)
         
     function ready (error, datapoints) {
-        
+
+
+        defs.selectAll(".fighter-pattern")
+            .data(datapoints)
+            .enter().append("pattern")
+            .attr("class", "fighter-pattern")
+            .attr("id", function(d){
+                
+            return d.fighter.toLowerCase().split(' ').join('-');
+            //return d.division
+            })
+            .attr("height", "100%")
+            .attr("width", "100%")
+            .attr("patternContentUnits", "objectBoundingBox")
+            .append("image")
+            .attr("height", 1)
+            .attr("width", 1)
+            .attr("preserveAspectRatio", "none")
+            .attr("xmlns:xlink", "http://www.w3.org/1999/xlink")
+            .attr("xlink:href", function(d){
+               return "images/" + d.fighter_image 
+               //return d.fighter_image
+            });
+            
+            
         var circles = svg.selectAll(".fighter")
             .data(datapoints)
             .enter().append("circle")
             .attr("class", "fighter")
-            .attr("r", 10)
-            .attr("fill", "lightblue")
+            .attr("r", function(d){
+                return radiusScale(d.fights_in_UFC);
+            })
+            .attr("fill", function(d){
+                
+            return "url(#" + d.fighter.toLowerCase().split(' ').join('-') + ")";
+            //return "url(#" + d.division + ")";
+            })
+            .on("click", function(d){
+                console.log(d)
+            })
+        
 
             
         simulation.nodes(datapoints)
