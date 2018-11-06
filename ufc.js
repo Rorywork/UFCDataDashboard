@@ -1,6 +1,6 @@
 (function(){
-    var width = 1500;
-        height = 1300;
+    var width = 700;
+        height = 600;
         
     var svg = d3.select("#chart")
         .append("svg")
@@ -33,7 +33,7 @@
     
     
         
-    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([10, 80]);
+    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([5, 40]);
        
         
         
@@ -97,7 +97,7 @@
                 return "pink";
             } 
             })
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 1)
             .attr("r", function(d){
                 return radiusScale(d.fights_in_UFC);
             })
