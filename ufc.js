@@ -107,7 +107,11 @@
             //return "url(#" + d.division + ")";
             })
             .on("click", function(d){
-                console.log(d)
+                d3.selectAll("text.fightername").remove();
+                d3.select("#fighter-name")
+                .append("text")
+                .attr("class", "fightername")
+                .text(d.fighter)
             })
             
         
