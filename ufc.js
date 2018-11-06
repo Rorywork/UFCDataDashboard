@@ -1,5 +1,5 @@
 (function(){
-    var width = 1000;
+    var width = 1500;
         height = 1300;
         
     var svg = d3.select("#chart")
@@ -71,6 +71,33 @@
             .data(datapoints)
             .enter().append("circle")
             .attr("class", "fighter")
+            .attr("stroke", function(d){
+            if (d.division == "Heavyweight") {
+                return "red";
+            } 
+            if (d.division == "Light Heavyweight") {
+                return "orange";
+            }     
+            if (d.division == "Middleweight") {
+                return "yellow";
+            } 
+            if (d.division == "Welterweight") {
+                return "green";
+            }     
+            if (d.division == "Lightweight") {
+                return "blue";
+            }     
+            if (d.division == "Featherweight") {
+                return "brown";
+            }  
+            if (d.division == "Bantamweight") {
+                return "purple";
+            } 
+            else{
+                return "pink";
+            } 
+            })
+            .attr("stroke-width", 2)
             .attr("r", function(d){
                 return radiusScale(d.fights_in_UFC);
             })
@@ -82,6 +109,7 @@
             .on("click", function(d){
                 console.log(d)
             })
+            
         
 
             
