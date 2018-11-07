@@ -33,7 +33,7 @@
     
     
         
-    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([5, 40]);
+    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([15, 30]);
        
         
         
@@ -212,7 +212,7 @@
             d3.selectAll(".fighter")
                 .attr("opacity", 1.0);
             var value = selector.property("value");
-                if(value != "ALL") {
+                if(value != "All Divisions") {
                     d3.selectAll(".fighter")
                         .filter(function(d) { return d.division != value; })
                         .attr("opacity", 0.1);
