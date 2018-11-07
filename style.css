@@ -68,4 +68,11 @@ svg {
 
 .list-title{
     color: red;
+    font-size: 20px;
+}
+
+.small-text{
+    color: grey;
+    font-size: 14px;
+    font-family: sans-serif;
 }

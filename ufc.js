@@ -108,10 +108,71 @@
             })
             .on("click", function(d){
                 d3.selectAll("text.fightername").remove();
+                d3.selectAll("text.country").remove();
+                d3.selectAll("text.record").remove();
+                d3.selectAll("text.age").remove();
+                d3.selectAll("text.height").remove();
+                d3.selectAll("text.division").remove();
+                d3.selectAll("text.style").remove();
+                d3.selectAll("text.strikes").remove();
+                d3.selectAll("text.takedowns").remove();
+                d3.selectAll("text.win-percentage").remove();
+                d3.selectAll("text.fights-in-ufc").remove();
+                
                 d3.select("#fighter-name")
                 .append("text")
                 .attr("class", "fightername")
                 .text(d.fighter)
+
+                d3.select("#country")
+                .append("text")
+                .attr("class", "country")
+                .text(d.country)
+                
+                d3.select("#mma-record")
+                .append("text")
+                .attr("class", "record")
+                .text(d.record)
+
+                d3.select("#age")
+                .append("text")
+                .attr("class", "age")
+                .text(d.age)
+                
+                d3.select("#height")
+                .append("text")
+                .attr("class", "height")
+                .text((d.height / 100) + "m") 
+
+                d3.select("#division")
+                .append("text")
+                .attr("class", "division")
+                .text(d.division) 
+
+                d3.select("#style")
+                .append("text")
+                .attr("class", "style")
+                .text(d.style) 
+
+                d3.select("#strikes")
+                .append("text")
+                .attr("class", "strikes")
+                .text(d.slpm) 
+                
+                d3.select("#takedowns")
+                .append("text")
+                .attr("class", "takedowns")
+                .text(d.td) 
+
+                d3.select("#win-percentage")
+                .append("text")
+                .attr("class", "win-percentage")
+                .text(((d.win)*100) + "%") 
+                
+                d3.select("#fights-in-ufc")
+                .append("text")
+                .attr("class", "fights-in-ufc")
+                .text(d.fights_in_UFC) 
             })
             
         
