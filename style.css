@@ -60,7 +60,8 @@ svg {
 }
 
 .list-style{
-    color: #a82222;
+    color: 
+#d30b0b;
     font-family: sans-serif;
     list-style: none;
     font-size: 18px;
@@ -79,4 +80,25 @@ svg {
 
 .stats{
     color: white;
+}
+
+.fighter-image-corner{
+    position: relative;
+    float: right;
+    height: 100px;
+    background-color: black;
+    width: 100px;
+
+
+}
+
+.fighter-image-stats{
+    position: relative;
+    float: right;
+    height: 100px;
+    background-color: grey;
+    width: 100px;
+    margin-right: 3px;
+    margin-top: 3px;
+
 }

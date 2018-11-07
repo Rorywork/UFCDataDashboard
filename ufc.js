@@ -108,6 +108,7 @@
             })
             .on("click", function(d){
                 d3.selectAll("text.stats").remove();
+                d3.selectAll("img.fighter-image-stats").remove();                
 
                 d3.select("#fighter-name")
                 .append("text")
@@ -163,6 +164,11 @@
                 .append("text")
                 .attr("class", "stats")
                 .text(d.fights_in_UFC) 
+                
+                d3.select("#fighter-image")
+                .append("img")
+                .attr("class", "fighter-image-stats")
+                .attr("src", "images/" + d.fighter_image) 
             })
             
         
