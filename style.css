@@ -15,6 +15,29 @@ svg {
     transform: translateY(70px);
 }
 
+.nav-links{
+    background-color: ggrey;
+    height: 50px;
+    margin-left: 11.5%;
+    margin-right: 41%;
+    text-align: center;
+}
+
+.list-item{
+    list-style-type: none;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    padding: 15px;
+    background-color: black;
+    margin-top: 60px;
+    margin-left: 5px;
+    font-family: sans-serif;
+    color: white;
+    border: 1px solid red;
+    
+}
+
 
 .header{
     background-color: black;    
@@ -60,8 +83,7 @@ svg {
 }
 
 .list-style{
-    color: 
-#d30b0b;
+    color: #d30b0b;
     font-family: sans-serif;
     list-style: none;
     font-size: 18px;
@@ -98,7 +120,7 @@ svg {
     height: 100px;
     background-color: grey;
     width: 100px;
-    margin-right: 3px;
-    margin-top: 3px;
-
+    margin-right: 5px;
+    margin-top: 5px;
+    border-radius: 20px;
 }
