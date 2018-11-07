@@ -186,6 +186,41 @@
                     return d.y
                 })
         }
+        
+    var divisions = d3.nest()
+        //.data(datapoints)
+        .key(function(d){ return d.division})
+            .rollup(function(a){ return a.length; })
+        .entries(datapoints);
+        
+    divisions.unshift({"key": "All Divisions",
+                    "value": d3.sum(divisions, function(d){ return d.value;})
+    })
+        
+    var selector = d3.select("#selector");
+    
+    selector
+        .selectAll("option")
+        .data(divisions)
+        .enter()
+        .append("option")
+            .text(function(d){ return d.key;})
+            .attr("value", function(d){ return d.key;})
+    
+    selector    
+        .on("change", function(){
+            d3.selectAll(".fighter")
+                .attr("opacity", 1.0);
+            var value = selector.property("value");
+                if(value != "ALL") {
+                    d3.selectAll(".fighter")
+                        .filter(function(d) { return d.division != value; })
+                        .attr("opacity", 0.1);
+                }
+        })    
     }
+
+
+   
     
 })();
