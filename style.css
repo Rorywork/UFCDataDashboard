@@ -132,3 +132,12 @@ svg {
     margin-top: 5px;
     border-radius: 20px;
 }
+
+.hover-text{
+    color: black;
+    position: absolute;
+    margin-left: 30%;
+    margin-top: 6%;
+    z-index:1;
+    font-family: sans-serif;
+}

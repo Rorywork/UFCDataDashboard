@@ -8,15 +8,32 @@
         .attr("width", width)
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-        
+
+    var forceXFightsInUfc = d3.forceX(0).strength(0.003)
+    
+    var forceXChampions = d3.forceX(function(d){
+        if(d.champion === "yes") {
+            return 100
+        } else{
+            return -200
+        }
+    }).strength(0.5)
+    
+        var forceXBrawl = d3.forceX(0).strength(2)
+    
+    
+    
+    var forceCollide = d3.forceCollide(function(d){
+        return radiusScale(d.fights_in_UFC) + 1
+    })
     
     var simulation = d3.forceSimulation()
-        .force("x", d3.forceX(0).strength(0.003))      
-        .force("y", d3.forceY(0).strength(0.003))
-        .force("collide", d3.forceCollide(function(d){
-            return radiusScale(d.fights_in_UFC) + 1;
-        }))
-    
+          .force("x", forceXFightsInUfc)      
+          .force("y", d3.forceY(0).strength(0.003))
+          .force("collide", d3.forceCollide(function(d){
+              return radiusScale(d.fights_in_UFC) + 2;
+          }))
+
         
     var defs = svg.append("defs");
     
@@ -65,6 +82,7 @@
                return "images/" + d.fighter_image 
                //return d.fighter_image
             });
+
             
             
         var circles = svg.selectAll(".fighter")
@@ -171,7 +189,27 @@
                 .attr("src", "images/" + d.fighter_image) 
             })
             
+
+        d3.select("#champions").on("click", function(){
+            simulation
+                .force("x", forceXChampions)
+             .alphaTarget(0.1)
+                .restart()
+        })
         
+        d3.select("#brawl").on("click", function(){
+            simulation
+                .force("x", forceXBrawl)
+             .alphaTarget(0.5)
+                .restart()
+        })
+
+        d3.select("#fights-in-ufc").on("click", function(){
+            simulation
+                .force("x", forceXFightsInUfc)
+                .alphaTarget(1)
+                .restart()
+        })
 
             
         simulation.nodes(datapoints)
