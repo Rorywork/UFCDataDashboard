@@ -60,14 +60,14 @@ svg {
 }
 
 .list-style{
-    color: white;
+    color: #a82222;
     font-family: sans-serif;
     list-style: none;
     font-size: 18px;
 }
 
 .list-title{
-    color: red;
+    color: yellow;
     font-size: 20px;
 }
 
@@ -75,4 +75,8 @@ svg {
     color: grey;
     font-size: 14px;
     font-family: sans-serif;
+}
+
+.stats{
+    color: white;
 }
