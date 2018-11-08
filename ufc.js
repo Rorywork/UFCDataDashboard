@@ -8,6 +8,8 @@
         .attr("width", width)
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+       
+        
 
     var forceXFightsInUfc = d3.forceX(0).strength(0.003)
     
@@ -33,6 +35,8 @@
           .force("collide", d3.forceCollide(function(d){
               return radiusScale(d.fights_in_UFC) + 2;
           }))
+         
+           
 
         
     var defs = svg.append("defs");
@@ -124,7 +128,25 @@
             return "url(#" + d.fighter.toLowerCase().split(' ').join('-') + ")";
             //return "url(#" + d.division + ")";
             })
+             .on("mouseover", function(d){
+               // below all needs to be added to make the name pop up
+                d3.select(this).raise()
+                    .attr("class", "fighter")
+                    .attr("r", function(d){
+                    return radiusScale(150);
+            })
+                //console.log("hover over");
+            })
+            .on("mouseout", function(d){
+                // below needs to be added to make the pop-up name disappear
+            //    d3.selectAll("text.stats").remove();
+                d3.selectAll(".fighter")
+                    .attr("r", function(d){
+                    return radiusScale(d.fights_in_UFC);
+                    })
+            })
             .on("click", function(d){
+                //console.log("Clicked");
                 d3.selectAll("text.stats").remove();
                 d3.selectAll("img.fighter-image-stats").remove();                
 
@@ -188,6 +210,7 @@
                 .attr("class", "fighter-image-stats")
                 .attr("src", "images/" + d.fighter_image) 
             })
+            
             
 
         d3.select("#champions").on("click", function(){
