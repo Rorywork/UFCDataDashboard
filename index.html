@@ -1,88 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="style.css" type="text/css" />
-	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="https://d3js.org/d3.v4.min.js"></script>  
-	<title>Document</title>
-</head>
-<body>
-
-
-
-<div class="header">
-		<div class="logo">
-			
-		</div>	
-		<h1 class="heading">Dashboard</h1>
-		<select id="selector" class="selector"></select>
-</div>
-
-
-	<ul class ="nav-links">
-		<li id="fights-in-ufc" class="list-item">All Fighters</li>
-		<li id="champions" class="list-item gold">Champions</li>
-		<li class="display-name"><p id="hover-name"></p>
-
-	</ul>
-	
-
-
-<div id="chart">
-</div>
-
-<h1 class="hover-text" id="fighter-name-chart"></h1>
-
-<div id="stats">
-	
-	<div class="fighter-image-corner" id="fighter-image">
-		
-	</div>
-	
-	<ul class="list-style">
-		<li class="list-title">Fighter Statistics</li>
-		<br>
-		<li id="fighter-name">Name: </li>
-		<br>
-		<li id="country">Country: </li>
-		<br>
-		<li id="mma-record">MMA Record: </li>
-		<br>
-		<li id="age">Age: </li>
-		<br>
-		<li id="height">Height: </li>
-		<br>
-		<li id="division">Division: </li>
-		<br>
-		<li id="style">Style: </li>
-		<br>
-		<li id="strikes">SLpM: </li>
-		<li class="small-text">Significant strikes landed per minute</li>
-		<br>
-		<li id="takedowns">Takedown Avg: </li>
-		<li class="small-text">Average number of takedowns per 15 mins</li>
-		<br>
-		<li id="win-percentage">Career Win Percentage: </li>
-		<br>
-		<li id="fights">Fights in UFC: </li>
-		<br>
-	</ul>
-	
-</div>
-	
-
-	
-	
-	
-	
-	
-	
-	
-<script src="ufc.js"></script>
-
-
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="style.css" type="text/css" />
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<title>UFC Data Visualization</title>
+	</head>
+				<body>
+					<div class="header">
+						<div class="logo"></div>
+						<h1 class="heading">Dashboard</h1>
+						<select id="selector" class="selector"></select>
+					</div>
+					<ul class ="nav-links">
+						<li id="fights-in-ufc" class="list-item">All Fighters</li>
+						<li id="champions" class="list-item gold">Champions</li>
+						<li class="display-name">
+							<p id="hover-name"></p>
+					</ul>
+					<div id="chart"></div>
+						<h1 class="hover-text" id="fighter-name-chart"></h1>
+						<div id="stats">
+							<div class="fighter-image-corner" id="fighter-image"></div>
+							<ul class="list-style">
+								<li class="list-title">Fighter Statistics</li><br>
+								<li id="fighter-name">Name: </li><br>
+								<li id="country">Country: </li><br>
+								<li id="mma-record">MMA Record: </li><br>
+								<li id="age">Age: </li><br>
+								<li id="height">Height: </li><br>
+								<li id="division">Division: </li><br>
+								<li id="style">Style: </li><br>
+								<li id="strikes">SLpM: </li>
+								<li class="small-text">Significant strikes landed per minute</li><br>
+								<li id="takedowns">Takedown Avg: </li>
+								<li class="small-text">Average number of takedowns per 15 mins</li><br>
+								<li id="win-percentage">Career Win Percentage: </li><br>
+								<li id="fights">Fights in UFC: </li><br>
+							</ul>
+					</div>
+			        <script src="ufc.js"></script>
+				</body>
 </html>
