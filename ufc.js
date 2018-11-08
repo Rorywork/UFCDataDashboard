@@ -19,7 +19,7 @@
         } else{
             return -200
         }
-    }).strength(0.5)
+    }).strength(0.2)
     
         var forceXBrawl = d3.forceX(0).strength(2)
     
@@ -31,7 +31,7 @@
     
     var simulation = d3.forceSimulation()
           .force("x", forceXFightsInUfc)      
-          .force("y", d3.forceY(0).strength(0.003))
+          .force("y", d3.forceY(0).strength(0.01))
           .force("collide", d3.forceCollide(function(d){
               return radiusScale(d.fights_in_UFC) + 2;
           }))
@@ -54,7 +54,7 @@
     
     
         
-    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([15, 30]);
+    var radiusScale = d3.scaleSqrt().domain([3, 29]).range([9, 35]);
        
         
         
@@ -94,30 +94,12 @@
             .enter().append("circle")
             .attr("class", "fighter")
             .attr("stroke", function(d){
-            if (d.division == "Heavyweight") {
-                return "red";
+            if (d.champion == "yes") {
+                return "gold";
+            }else{
+                return "black"
             } 
-            if (d.division == "Light Heavyweight") {
-                return "orange";
-            }     
-            if (d.division == "Middleweight") {
-                return "yellow";
-            } 
-            if (d.division == "Welterweight") {
-                return "green";
-            }     
-            if (d.division == "Lightweight") {
-                return "blue";
-            }     
-            if (d.division == "Featherweight") {
-                return "brown";
-            }  
-            if (d.division == "Bantamweight") {
-                return "purple";
-            } 
-            else{
-                return "pink";
-            } 
+
             })
             .attr("stroke-width", 1)
             .attr("r", function(d){
@@ -133,9 +115,14 @@
                 d3.select(this).raise()
                     .attr("class", "fighter")
                     .attr("r", function(d){
-                    return radiusScale(150);
+                    return radiusScale(50);
             })
                 //console.log("hover over");
+                d3.select("#hover-name")
+                .append("text")
+                .attr("class", "hover-name")
+                .text(d.fighter)
+                console.log("hover over");
             })
             .on("mouseout", function(d){
                 // below needs to be added to make the pop-up name disappear
@@ -144,6 +131,7 @@
                     .attr("r", function(d){
                     return radiusScale(d.fights_in_UFC);
                     })
+                d3.select(".hover-name").remove();
             })
             .on("click", function(d){
                 //console.log("Clicked");
@@ -200,7 +188,7 @@
                 .attr("class", "stats")
                 .text(((d.win)*100) + "%") 
                 
-                d3.select("#fights-in-ufc")
+                d3.select("#fights")
                 .append("text")
                 .attr("class", "stats")
                 .text(d.fights_in_UFC) 
@@ -216,7 +204,7 @@
         d3.select("#champions").on("click", function(){
             simulation
                 .force("x", forceXChampions)
-             .alphaTarget(0.1)
+             .alphaTarget(0.2)
                 .restart()
         })
         
@@ -230,7 +218,7 @@
         d3.select("#fights-in-ufc").on("click", function(){
             simulation
                 .force("x", forceXFightsInUfc)
-                .alphaTarget(1)
+                .alphaTarget(1.7)
                 .restart()
         })
 
