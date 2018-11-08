@@ -117,6 +117,8 @@
                     .attr("r", function(d){
                     return radiusScale(50);
             })
+                    .attr("stroke", "red")
+                    .attr("stroke-width", 2)
                 //console.log("hover over");
                 d3.select("#hover-name")
                 .append("text")
@@ -131,7 +133,16 @@
                     .attr("r", function(d){
                     return radiusScale(d.fights_in_UFC);
                     })
+                    .attr("stroke", function(d){
+                    if (d.champion == "yes") {
+                        return "gold";
+                    }else{
+                        return "black"
+                    }     
+                    })
+                    .attr("stroke-width", 1)
                 d3.select(".hover-name").remove();
+                
             })
             .on("click", function(d){
                 //console.log("Clicked");
