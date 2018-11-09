@@ -1,8 +1,34 @@
+// Check for Browser - Chrome is best option
+// Opera 8.0+
+var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+// Firefox 1.0+
+var isFirefox = typeof InstallTrigger !== 'undefined';
+
+// Safari 3.0+ "[object HTMLElementConstructor]" 
+var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+// Internet Explorer 6-11
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+// Edge 20+
+var isEdge = !isIE && !!window.StyleMedia;
+
+// Chrome 1+
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+// Blink engine detection
+var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+
 (function() {
+    
+//Sets the width and height of the viewport, then creates variable called svg and appends an svg.
+
  var width = 700;
  height = 550;
 
- var svg = d3.select("#chart")
+ var svg = d3.select("#chart")                                                    
   .append("svg")
   .attr("height", height)
   .attr("width", width)
@@ -10,8 +36,9 @@
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
 
-
- var forceXFightsInUfc = d3.forceX(0).strength(0.003)
+// the force variables are called on page load and when the nav bar buttons are clicked
+// this is what makes the circles move in a certain way. There is a force on the x axis and y axis.
+ var forceXFightsInUfc = d3.forceX(0).strength(0.003)                                   
 
  var forceXChampions = d3.forceX(function(d) {
   if (d.champion === "yes") {
@@ -23,11 +50,15 @@
 
  var forceXBrawl = d3.forceX(0).strength(2)
 
-
+// The radiusScale sets the radius of the circles and adds a bit of space - it uses the value of the 
+// data fights_in_UFC to determine radius, this data is found in the CSV file.
 
  var forceCollide = d3.forceCollide(function(d) {
   return radiusScale(d.fights_in_UFC) + 1
  })
+
+// The variable simulation determins which force variable is used in the first instance. Makes the circles cluster together.
+
 
  var simulation = d3.forceSimulation()
   .force("x", forceXFightsInUfc)
@@ -37,7 +68,7 @@
   }))
 
 
-
+// The variable defs is used to add the stylings for the image in the circle.
 
  var defs = svg.append("defs");
 
@@ -52,12 +83,12 @@
   .attr("preserveAspectRatio", "none")
   .attr("xlink:href", "images/jones.jpg")
 
-
+// The radius scale range fixes the range of the data i.e the sizes of the circles.
 
  var radiusScale = d3.scaleSqrt().domain([3, 29]).range([9, 35]);
 
 
-
+// Loads the CSV file
  d3.queue()
   .defer(d3.csv, "ufc-data-2.csv")
   .await(ready)
@@ -120,10 +151,12 @@
      .attr("stroke", "red")
      .attr("stroke-width", 2)
     //console.log("hover over");
-    d3.select("#hover-name")
-     .append("text")
-     .attr("class", "hover-name")
-     .text(d.fighter)
+    if (isChrome) {
+      d3.select("#hover-name")
+      .append("text")
+      .attr("class", "hover-name")
+      .text(d.fighter)
+    }
     console.log("hover over");
    })
    .on("mouseout", function(d) {
@@ -141,7 +174,7 @@
       }
      })
      .attr("stroke-width", 1)
-    d3.select(".hover-name").remove();
+    if (isChrome) d3.select(".hover-name").remove();
 
    })
    .on("click", function(d) {
