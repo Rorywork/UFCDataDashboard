@@ -20,11 +20,19 @@ var isChrome = !!window.chrome && !!window.chrome.webstore;
 // Blink engine detection
 var isBlink = (isChrome || isOpera) && !!window.CSS;
 
+function statsExtract(str){
+	return str.split(" ")[0].split("-");
+	/* This gets a substring from the beginning of the string 
+      	to the first index of the character " " and then splits
+	that string into an array delimited by the "-" character.
+	e.g. converts ""42-6-2 (1 NC)" into [42,6,2]
+   	*/
+}
+
 
 (function() {
     
 //Sets the width and height of the viewport, then creates variable called svg and appends an svg.
-
  var width = 700;
  height = 550;
 
@@ -119,7 +127,7 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
    });
 
 
-
+//Creates the circles and attaches the data to them
   var circles = svg.selectAll(".fighter")
    .data(datapoints)
    .enter().append("circle")
@@ -130,7 +138,7 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
     } else {
      return "black"
     }
-
+//Determines the border color of the circle - set gold for champions
    })
    .attr("stroke-width", 1)
    .attr("r", function(d) {
@@ -148,8 +156,10 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
      .attr("r", function(d) {
       return radiusScale(50);
      })
-     .attr("stroke", "red")
+     //.attr("stroke", "red")
      .attr("stroke-width", 2)
+     var circlex = d3.select(this).attr("cx");
+     var circley = d3.select(this).attr("cy");
     //console.log("hover over");
     if (isChrome) {
       d3.select("#hover-name")
@@ -157,6 +167,9 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
       .attr("class", "hover-name")
       .text(d.fighter)
     }
+    statsDonut(statsExtract(d.record),circlex,circley,48);
+    //statsDonut(d.record,70);
+    //statsDonut([42,6,2],70);
     console.log("hover over");
    })
    .on("mouseout", function(d) {
@@ -175,8 +188,9 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
      })
      .attr("stroke-width", 1)
     if (isChrome) d3.select(".hover-name").remove();
-
+    d3.selectAll(".arc").remove();
    })
+   //the on click codes below create the stats section, each time a fighter is clicked the relevant stats are diplayed
    .on("click", function(d) {
     //console.log("Clicked");
     d3.selectAll("text.stats").remove();
@@ -243,7 +257,7 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
      .attr("src", "images/" + d.fighter_image)
    })
 
-
+//Different forces are used depending on which button is clicked
 
   d3.select("#champions").on("click", function() {
    simulation
@@ -296,7 +310,7 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
     return d.value;
    })
   })
-
+//Creates the selector for the divisions, non-selected devisions's circles will got transparent.
   var selector = d3.select("#selector");
 
   selector
@@ -326,6 +340,36 @@ var isBlink = (isChrome || isOpera) && !!window.CSS;
    })
  }
 
+// --------------------------------------------------------------------
+
+
+function statsDonut(data,donutx, donuty,donutRad) {
+
+ var arcColor = d3.scaleOrdinal()
+	.range(["lightgreen", "red", "orange"]);
+
+  var arc = d3.arc()
+	.innerRadius(donutRad)
+	.outerRadius(donutRad+10);
+
+  var pie = d3.pie()
+	//.padAngle(0.005)
+  .value(function(d) {return d;});
+
+  var arcs = svg.selectAll(".arc")
+	.data(pie(data))
+	.enter()
+	.append("g")
+	.attr("transform","translate(" + donutx + ","+ donuty + ")")
+	.attr("class","arc");
+
+  arcs.append("path")
+	.attr("d",arc)
+	.attr("fill", function(d) {return arcColor(d.data);})
+
+}
+
+// --------------------------------------------------------------------
 
 
 
