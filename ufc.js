@@ -65,7 +65,7 @@ function statsExtract(str){
   return radiusScale(d.fights_in_UFC) + 1
  })
 
-// The variable simulation determins which force variable is used in the first instance. Makes the circles cluster together.
+// The variable simulation determines which force variable is used in the first instance. Makes the circles cluster together.
 
 
  var simulation = d3.forceSimulation()
@@ -147,10 +147,10 @@ function statsExtract(str){
    .attr("fill", function(d) {
 
     return "url(#" + d.fighter.toLowerCase().split(' ').join('-') + ")";
-    //return "url(#" + d.division + ")";
+
    })
    .on("mouseover", function(d) {
-    // below all needs to be added to make the name pop up
+    // below all needs to be added to make the name pop up on mouseover
     d3.select(this).raise()
      .attr("class", "fighter")
      .attr("r", function(d) {
@@ -190,6 +190,7 @@ function statsExtract(str){
     if (isChrome) d3.select(".hover-name").remove();
     d3.selectAll(".arc").remove();
    })
+   
    //the on click codes below create the stats section, each time a fighter is clicked the relevant stats are diplayed
    .on("click", function(d) {
     //console.log("Clicked");
@@ -340,7 +341,7 @@ function statsExtract(str){
    })
  }
 
-// --------------------------------------------------------------------
+
 
 
 function statsDonut(data,donutx, donuty,donutRad) {
@@ -369,7 +370,7 @@ function statsDonut(data,donutx, donuty,donutRad) {
 
 }
 
-// --------------------------------------------------------------------
+
 
 
 
